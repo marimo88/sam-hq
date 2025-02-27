@@ -1,0 +1,5 @@
+pretrained_checkpoint/
+.venv/
+sam_hq.egg-info/
+segment_anything/
+hq_sam_result/
