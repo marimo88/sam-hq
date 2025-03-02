@@ -5,3 +5,4 @@ segment_anything/
 hq_sam_result/
 data/
 output/
+__pycache__/
