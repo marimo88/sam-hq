@@ -56,7 +56,7 @@ def prepare_sam_for_training(checkpoint_path, device='cuda:0'):
     Returns:
         model: 準備されたSAMモデル
     """
-    model_type = "vit_h"  # オプション: vit_b, vit_l, vit_h
+    model_type = "vit_b"  # オプション: vit_b, vit_l, vit_h
     sam = sam_model_registry[model_type](checkpoint=checkpoint_path)
     sam.to(device)
 
@@ -233,7 +233,7 @@ class SAMFineTuner:
 
 def main():
     # 使用例
-    sam_checkpoint_path = "./pretrained_checkpoint/sam_vit_h_4b8939.pth"  # Meta AIからダウンロード
+    sam_checkpoint_path = "pretrained_checkpoint/sam_vit_b_01ec64.pth"  # Meta AIからダウンロード
     data_dir = "./train/data"
     output_dir = "./sam_finetuned_models"
 
