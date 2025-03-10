@@ -144,8 +144,7 @@ class SAMFineTuner:
 
                 # 低解像度マスクを取得する
                 sparse_embeddings, dense_embeddings = self.model.prompt_encoder(
-                    points=points,
-                    labels=labels,
+                    points=(points, labels),  # 座標とラベルをタプルとして渡す
                     boxes=None,
                     masks=None
                 )
