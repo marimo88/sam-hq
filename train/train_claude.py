@@ -42,7 +42,7 @@ class CustomSegmentationDataset(Dataset):
             image = self.transform(image)
             mask = transforms.ToTensor()(mask)
 
-        return {'image': image, 'mask': mask.squeeze().long()}
+        return {'image': image, 'mask': mask.squeeze().float()}
 
 
 def prepare_sam_for_training(checkpoint_path, device='cuda:0'):
@@ -101,7 +101,7 @@ class SAMFineTuner:
             self.dataset, batch_size=2, shuffle=True, num_workers=4)
 
         # 損失関数とオプティマイザを定義する
-        self.criterion = nn.CrossEntropyLoss()
+        self.criterion = nn.BCEWithLogitsLoss()
         self.optimizer = optim.Adam(
             [p for p in self.model.parameters() if p.requires_grad],
             lr=1e-5
@@ -167,7 +167,8 @@ class SAMFineTuner:
                 )
 
                 # 損失を計算する
-                loss = self.criterion(upscaled_masks, masks)
+                loss = self.criterion(upscaled_masks.squeeze(1), masks)
+                loss = self.criterion(upscaled_masks.squeeze(1), masks)
 
                 # 逆伝播と最適化
                 loss.backward()
